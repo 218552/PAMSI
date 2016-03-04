@@ -6,34 +6,35 @@ int main()
 {
   int n=5;
   int *tab=new int[n];
-  int *tab_pom=new int[n];
   int liczba;
-
-  for(int i=0;i<n;i++)
-      tab[i]=i;
-  for(int i=0;i<n;i++)
-      cout<<tab[i]<<endl;
+  int licznik=0;
 
   while(liczba!=32)
     {
-      cout<<"Podaj liczbe do zapisania: ";
-      cin>>liczba;
-      for(int i=0;i<n;i++)
+      if(licznik<n)
 	{
-	  tab_pom[i]=tab[i];
+	  cout<<"Podaj liczbe: ";
+	  cin>>liczba;
+	  if(liczba==32) break;
+	  tab[licznik]=liczba;
+	  licznik++;
 	}
-      n++;
-      delete [] tab;
-      int *tab=new int[n];
-      for(int i=0;i<n;i++)
+      else
 	{
-	  tab[i]=tab_pom[i];
+	  int *tab_pom=new int[n];
+	  n++;
+	  cout<<n<<endl;
+	  for(int i=0;i<licznik;i++)
+	    tab_pom[i]=tab[i];
+	  delete [] tab;
+	  int *tab=new int[n];
+	  for(int i=0;i<licznik;i++)
+	    tab[i]=tab_pom[i];
+	  for(int i=0;i<licznik;i++)
+	    cout<<tab_pom[i]<<endl;
+	  delete [] tab_pom;
 	}
-      tab[n-1]=liczba;
-      delete [] tab_pom;
-      int *tab_pom=new int[n];
     }
-  for(int i=0;i<n;i++)
+  for(int i=0;i<licznik;i++)
     cout<<tab[i]<<endl;
-  delete [] tab;
 }
