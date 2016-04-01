@@ -1,73 +1,88 @@
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
+#include <fstream>
 
 using namespace std;
 
-class Element
+class Interfejs
 {
 public:
-  Element *wskaznik_na_element;
-  int dana;
+  virtual double stoper(bool flag)=0;
 };
 
-class Lista
+class Interfejs2
+  :public Interfejs
 {
+  clock_t start;
 public:
-  virtual int add(Element element,int pozycja)=0;
-  virtual Element remove(int pozycja)=0;
-  virtual int size()=0;
+  double stoper(bool flag);
+  bool *zmien_rozmiar(bool *tab,int n,int zwieksz);
 };
-
-class Stos :public Lista
-{
-  Element wezel;
-  int i;
-public:
   
-};
-
-class Kolejka :public Lista
+double Interfejs2::stoper(bool flag)
 {
-  Element wezel;
-  int i;
-public:
-  
-};
-
-class Stos_bez_interfejsu
-{
-public:
-  Element *wezel,*tmp;
-  int i;
-  Stos_bez_interfejsu(){i=0;};
-  int push(int wartosc);
-  Element *pop();
-  int size(){return i;};
-};
-
-int Stos_bez_interfejsu::push(int wartosc)
-{
-  tmp=new Element;
-  tmp->dana=wartosc;
-  tmp->wskaznik_na_element=wezel;
-  wezel=tmp;
-  ++i;
-  return 0;
+  if(flag==1)
+    {
+      start=clock();
+      return 0;
+    }
+  else
+    return double(clock()-start)/(double)CLOCKS_PER_SEC;
 }
 
-Element *Stos_bez_interfejsu::pop()
+/* Metoda zwieksza rozmiar tablicy o zadana wartosc           */
+/* Parametry                                                   */
+/* tab - tablica                                               */
+/* n - rozmiar tablicy przed powiekszeniem                     */
+/* zwieksz - ilosc elementow o jaka tablica zostanie zwiekszona*/
+bool* Interfejs2::zmien_rozmiar(bool *tab,int n,int zwieksz)
 {
-  wezel=tmp->wskaznik_na_element;
-  --i;
-  return wezel;
+  bool *tmp=new bool[n];
+  
+  for(int i=0;i<n;i++)
+    tmp[i]=tab[i];
+  
+  delete[] tab;
+  tab=new bool[n+zwieksz];
+
+  for(int i=0;i<n;i++)
+    tab[i]=tmp[i];
+
+  delete[] tmp;
+  return tab; 
+}
+
+void wyswietl(bool *tab,int n)
+{
+  for(int i=0;i<n;i++)
+    cout<<tab[i]<<endl;
 }
 
 int main()
 {
-  Stos_bez_interfejsu stos;
-  stos.push(5);
-  stos.push(10);
-  stos.push(15);
-  stos.pop();
-  cout<<stos.wezel->dana<<endl;
+  Interfejs2 inter;
+  fstream dane;
+  dane.open("dane.txt",ios::app|ios::out);
+  int n=10;              //poczatkowa ilosc elementow tablicy
+  int liczba=1;          //liczba do przypisania wartosci elementom tablicy
+  int zwieksz=100;         //ilosc elementow o jaka zwiekszana bedzie tablica
+  bool *tab=new bool[n];
+  inter.stoper(1);
+  for(int i=0;i<100000;i++)
+    {
+      if(i<n)
+	{
+	  tab[i]=liczba;
+	}
+      else
+	{
+	  tab=inter.zmien_rozmiar(tab,n,zwieksz);
+	  tab[i]=liczba;
+	  n=n+zwieksz;
+	}
+    }   
+  dane<<inter.stoper(0);
+  dane<<"\n";
+  delete[] tab;
 }
