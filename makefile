@@ -1,8 +1,8 @@
-p: main.o
-	g++ main.o -o p
-main.o: main.cpp
-	g++ -Wall -pedantic -std=c++11 -c main.cpp 
+p: tablica_dynamiczna.o
+	g++ tablica_dynamiczna.o -o p
+tablica_dynamiczna.o: tablica_dynamiczna.cpp
+	g++ -Wall -pedantic -std=c++11 -c tablica_dynamiczna.cpp 
 clean:
-	rm -r main.o p
+	rm -r tablica_dynamiczna.o p
 delete:
-	rm -r main.cpp~ 
+	rm -r tablica_dynamiczna.cpp~ 
