@@ -1,7 +1,7 @@
-#ifndef STACK_HPP
-#define STACK_HPP
+#ifndef QUEUE_HPP
+#define QUEUE_HPP
 
-class IStack
+class IQueue
 {
 public:
   virtual int push(int value)=0;
@@ -10,7 +10,7 @@ public:
   virtual void display()=0;
 };
 
-class Stack:public List
+class Queue:public List
 {
 public:
   int push(int value);
@@ -18,6 +18,5 @@ public:
   int size();
   void display();
 };
-
 
 #endif
