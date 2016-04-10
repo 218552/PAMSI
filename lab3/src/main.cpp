@@ -3,47 +3,49 @@
 #include "/home/piotr/PAMSI/lab3/inc/node.hpp"
 #include "/home/piotr/PAMSI/lab3/inc/list.hpp"
 #include "/home/piotr/PAMSI/lab3/inc/stack.hpp"
+#include "/home/piotr/PAMSI/lab3/inc/queue.hpp"
 
 using namespace std;
 
 int main()
 {
-  Stack stos;
-  int wybor;
-  int wartosc;
-  while(1)
-    {
-      cout<<"1 - push"<<endl;
-      cout<<"2 - pop"<<endl;
-      cout<<"3 - size"<<endl;
-      cout<<"4 - display"<<endl;
-      cout<<"Wybierz opcje: ";
-      cin>>wybor;
-      cout<<endl;
-    switch(wybor)
+  Queue list;
+  
+  char choose;
+  int value;
+
+  do
+  {
+    cout<<"1 - add"<<endl;
+    cout<<"2 - remove"<<endl;
+    cout<<"3 - size"<<endl;
+    cout<<"4 - display"<<endl;
+    cout<<"q - quit"<<endl<<endl;
+    cin>>choose;
+    switch(choose)
       {
-      case 1:
+      case '1':
 	{
 	  cout<<"Podaj wartosc: ";
-	  cin>>wartosc;
-	  stos.push(wartosc);
+	  cin>>value;
+	  list.push(value);
 	}
 	break;
-      case 2:
-      {
-	cout<<"Zwrocono element stosu o wartosci: "<<stos.pop()<<endl;
-      }
-      break;
-      case 3:
+      case '2': 
 	{
-	  cout<<"Rozmiar stosu: "<<stos.size()<<endl<<endl;
+	  list.pop();
 	}
 	break;
-      case 4:
+      case '3':
 	{
-	  stos.display();
+	  cout<<endl<<"Rozmiar kolejki: "<<list.size()<<endl<<endl;
+	}
+	break;
+      case '4':
+	{
+	  list.display();
 	}
 	break;
       }
-    }
+  } while(choose!='q');
 }

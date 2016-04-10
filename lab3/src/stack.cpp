@@ -6,48 +6,27 @@
 
 using namespace std;
 
-void Stack::push(int value)
+int Stack::push(int value)
 {
-  Node *tmp;
-  tmp=new Node;
-  tmp->data=value;
-  tmp->next=top;
-  top=tmp;
-  stack_size++;
+  return List::add(value,List::size()+1);
 }
 
-int Stack::pop()
+Node Stack::pop()
 {
-  if(top!=NULL)
-    {
-      Node *tmp=top;
-      top=top->next;
-      stack_size--;
-      cout<<"Zdjeto element"<<endl;
-      return tmp->data;
-      delete tmp;  
-    }
-  else 
-    {
-      string exception="Pusty stos";
-      throw exception;
-    }
+  return List::remove(List::size());
 }
+
 int Stack::size()
 {
-  return stack_size;
+  return List::size();
 }
 
 void Stack::display()
 {
-  Node *tmp=top;
-  while(tmp!=NULL)
-    {
-      cout<<tmp->data<<endl;
-      tmp=tmp->next; 
-    }
+  List::display();
 }
 
+/*
 Stack::~Stack()
 {
   while(top!=NULL)
@@ -57,3 +36,4 @@ Stack::~Stack()
       delete tmp;
     }
 }
+*/
