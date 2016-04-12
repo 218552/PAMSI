@@ -1,6 +1,6 @@
 p: obj/main.o obj/list.o obj/stack.o obj/queue.o
 	g++ obj/main.o obj/list.o obj/stack.o obj/queue.o -o p
-obj/main.o: src/main.cpp src/list.cpp src/stack.cpp src/queue.cpp inc/list.hpp inc/stack.hpp inc/node.hpp inc/queue.hpp
+obj/main.o: src/main.cpp src/list.cpp src/stack.cpp src/queue.cpp inc/list.hpp inc/stack.hpp inc/node.hpp inc/queue.hpp inc/stoper.hpp
 	g++ -c -Wall -pedantic -std=c++11 src/main.cpp -o obj/main.o
 obj/list.o: src/list.cpp inc/list.hpp inc/node.hpp
 	g++ -c -Wall -pedantic -std=c++11 src/list.cpp -o obj/list.o
