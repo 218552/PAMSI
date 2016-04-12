@@ -22,6 +22,7 @@ public:
   Node remove(int position);
   int size();
   void display();
+  int search(int number);
 };
 
 #endif
