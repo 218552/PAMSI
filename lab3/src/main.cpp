@@ -1,51 +1,31 @@
 #include <iostream>
+#include <ctime>
 
 #include "/home/piotr/PAMSI/lab3/inc/node.hpp"
 #include "/home/piotr/PAMSI/lab3/inc/list.hpp"
 #include "/home/piotr/PAMSI/lab3/inc/stack.hpp"
 #include "/home/piotr/PAMSI/lab3/inc/queue.hpp"
+#include "/home/piotr/PAMSI/lab3/inc/stoper.hpp"
 
 using namespace std;
 
 int main()
 {
-  Queue list;
+  List lista;
+  Stoper stoper;
+  srand(time(NULL));
+  // Poczatek pomiaru czasu
+  stoper.measure_time(1);
+  // Wypelnienie listy
+  for(int i=1;i<=100000000;i++)
+    {
+      lista.add(rand()%101,i);
+    }
+  // Wyszukanie danego elementu z listy
+  lista.search(100);
+  // Koniec pomiaru czasu i wyswietlenie wyniku
+  cout<<stoper.measure_time(0)<<endl;
   
-  char choose;
-  int value;
 
-  do
-  {
-    cout<<"1 - add"<<endl;
-    cout<<"2 - remove"<<endl;
-    cout<<"3 - size"<<endl;
-    cout<<"4 - display"<<endl;
-    cout<<"q - quit"<<endl<<endl;
-    cin>>choose;
-    switch(choose)
-      {
-      case '1':
-	{
-	  cout<<"Podaj wartosc: ";
-	  cin>>value;
-	  list.push(value);
-	}
-	break;
-      case '2': 
-	{
-	  list.pop();
-	}
-	break;
-      case '3':
-	{
-	  cout<<endl<<"Rozmiar kolejki: "<<list.size()<<endl<<endl;
-	}
-	break;
-      case '4':
-	{
-	  list.display();
-	}
-	break;
-      }
-  } while(choose!='q');
+  return 0;
 }
