@@ -23,6 +23,7 @@ public:
   int size();
   void display();
   int search(int number);
+  int get_data(int position);
 };
 
 #endif
