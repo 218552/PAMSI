@@ -140,3 +140,14 @@ int List::search(int number)
     }
   return counter;
 }
+
+/* Metoda zwraca element danego wezla listy */
+int List::get_data(int position)
+{
+  Node *tmp=head;
+  for(int i=0;i<(list_size-position);i++)
+    {
+      tmp=tmp->next;
+    }
+  return tmp->data;
+}
