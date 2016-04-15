@@ -25,3 +25,8 @@ void Queue::display()
 {
   List::display();
 }
+
+int Queue::get_data()
+{
+  return List::get_data(List::size());
+}
