@@ -17,6 +17,7 @@ public:
   Node pop();
   int size();
   void display();
+  int get_data();
 };
 
 #endif
