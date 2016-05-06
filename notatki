@@ -1,0 +1,41 @@
+Grafy
+
+Skladaja sie z wierzcholkow i krawedzi
+
+Grafami modeluje sie mapy, waga krawedzi to koszt(odleglosc, cena, czas
+przejazdu itp.) zwiazany z przedostaniem sie z jednego wierzcholka do drugiego
+
+V-zbior wierzcholkow
+E-zbior krawedzi
+W-zbior wag
+v-wierzcholek
+e-krawedz
+w-waga
+
+Graf skierowany i nieskierowany
+w nieskierowanym nie rozrozniamy kierunkow
+
+Kazda krawedz moze miec przypisana wage
+
+find_path(2,7)
+add_vertex(v)
+add_edge(x,y)
+get_neighboors(x) //pobiera sasiadow wezla x
+is_connected(x,y) //
+
+przy implementacji find_path w klasie Graf_search-> IGraf <- Graf,
+metoda powinna bazowac na interfejsie zamiast na grafie
+
+oznaczanie wezla ktory byl odwiedzony np czarnym kolorem
+pamietanie wezlow i krawedzi
+
+1. sprawdzic z czym wezel jest polaczony, czy jest to szukana liczba
+2. przejsc do nastepnego wezla i oznaczyc ze poprzedni sprawdzilismy
+
+Zadanie:
+1. implementacja grafu nieskierowanego, niewazonego
+2. w sprawozdaniu uzasadnic dlaczego wybralem macierz sasiedztwa czy liste
+3. implementacja bfs,dfs
+4. sprawdzic przeszukiwania grafu, ktorego licznosc wierzcholkow {10...10^6}
+   przeszukiwanie zrobic za pomoca bfs,dfs
+
