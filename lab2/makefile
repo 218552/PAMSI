@@ -1,8 +1,8 @@
-p: main.o
-	g++ main.o -o p
-main.o: main.cpp
-	g++ -Wall -pedantic -std=c++11 -c main.cpp 
+p: obj/main.o
+	g++ obj/main.o -o p
+obj/main.o: src/main.cpp
+	g++ -Wall -pedantic -std=c++11 -c src/main.cpp -o obj/main.o
 clean:
-	rm -r main.o p
+	rm -r obj/main.o p
 delete:
-	rm -r main.cpp~ 
+	rm -r src/main.cpp~ 
