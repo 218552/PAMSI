@@ -3,61 +3,9 @@
 #include <ctime>
 #include <fstream>
 
+#include "interfejs.hpp"
+
 using namespace std;
-
-class Interfejs
-{
-public:
-  virtual double stoper(bool flag)=0;
-};
-
-class Interfejs2
-  :public Interfejs
-{
-  clock_t start;
-public:
-  double stoper(bool flag);
-  bool *zmien_rozmiar(bool *tab,int n,int zwieksz);
-};
-
-double Interfejs2::stoper(bool flag)
-{
-  if(flag==1)
-    {
-      start=clock();
-      return 0;
-    }
-  else
-    return double(clock()-start)/(double)CLOCKS_PER_SEC;
-}
-
-/* Metoda zwieksza rozmiar tablicy o zadana wartosc           */
-/* Parametry                                                   */
-/* tab - tablica                                               */
-/* n - rozmiar tablicy przed powiekszeniem                     */
-/* zwieksz - ilosc elementow o jaka tablica zostanie zwiekszona*/
-bool* Interfejs2::zmien_rozmiar(bool *tab,int n,int zwieksz)
-{
-  bool *tmp=new bool[n];
-
-  for(int i=0;i<n;i++)
-    tmp[i]=tab[i];
-
-  delete[] tab;
-  tab=new bool[n+zwieksz];
-
-  for(int i=0;i<n;i++)
-    tab[i]=tmp[i];
-
-  delete[] tmp;
-  return tab;
-}
-
-void wyswietl(bool *tab,int n)
-{
-  for(int i=0;i<n;i++)
-    cout<<tab[i]<<endl;
-}
 
 int main()
 {
@@ -84,6 +32,5 @@ int main()
     }
   dane<<inter.stoper(0);
   dane<<"\n";
-  cout<<"sda"<<endl;
   delete[] tab;
 }
