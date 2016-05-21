@@ -19,7 +19,7 @@ public:
   double stoper(bool flag);
   bool *zmien_rozmiar(bool *tab,int n,int zwieksz);
 };
-  
+
 double Interfejs2::stoper(bool flag)
 {
   if(flag==1)
@@ -39,10 +39,10 @@ double Interfejs2::stoper(bool flag)
 bool* Interfejs2::zmien_rozmiar(bool *tab,int n,int zwieksz)
 {
   bool *tmp=new bool[n];
-  
+
   for(int i=0;i<n;i++)
     tmp[i]=tab[i];
-  
+
   delete[] tab;
   tab=new bool[n+zwieksz];
 
@@ -50,7 +50,7 @@ bool* Interfejs2::zmien_rozmiar(bool *tab,int n,int zwieksz)
     tab[i]=tmp[i];
 
   delete[] tmp;
-  return tab; 
+  return tab;
 }
 
 void wyswietl(bool *tab,int n)
@@ -81,8 +81,9 @@ int main()
 	  tab[i]=liczba;
 	  n=n+zwieksz;
 	}
-    }   
+    }
   dane<<inter.stoper(0);
   dane<<"\n";
+  cout<<"sda"<<endl;
   delete[] tab;
 }
