@@ -1,8 +1,10 @@
-p: tablica_dynamiczna.o
-	g++ tablica_dynamiczna.o -o p
-tablica_dynamiczna.o: tablica_dynamiczna.cpp
-	g++ -Wall -pedantic -std=c++11 -c tablica_dynamiczna.cpp 
+p: obj/main.o obj/funkcje.o
+	g++ obj/main.o obj/funkcje.o -o p
+obj/main.o: src/main.cpp inc/funkcje.hpp
+	g++ -Iinc -Wall -pedantic -std=c++11 -c src/main.cpp -o obj/main.o
+obj/funkcje.o: src/funkcje.cpp inc/funkcje.hpp
+	g++ -Iinc -Wall -pedantic -std=c++11 -c src/funkcje.cpp -o obj/funkcje.o
 clean:
-	rm -r tablica_dynamiczna.o p
+	rm -r obj/main.o obj/funkcje.o p
 delete:
-	rm -r tablica_dynamiczna.cpp~ 
+	rm -r src/main.cpp~ src/funkcje.cpp~
