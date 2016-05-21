@@ -27,7 +27,7 @@ int main()
 	  n=n*zwieksz;
 	}
     }
-  wyswietl(tab,10);
+
   delete[] tab;
   //Wyswietlenie czasu trwania algorytmu
   cout<<"Czas wykonania algorytmu: "<<double(clock()-start)/(double)CLOCKS_PER_SEC<<"s"<<endl;
