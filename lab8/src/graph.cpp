@@ -131,49 +131,45 @@ void Graph::branch_and_bound(int first,int find)
 {
   std::vector <Path> p;            //Tablica sciezek
   List tmp;
+  List v;
   int position=first;
   int path_length=0;
-  int path_finded=0;
-  p.push_back(Path(first,0));
+//  int path_finded=0;
+  v.add(first,0,1);
+  p.push_back(Path(v,0));
 
   //Dopoki kolejka nie jest pusta
-  while(p.size()>0)
+  while((p.size()>0)&&(position!=find))
   {
-    std::sort(p.begin(), p.end());      //Sortowanie sciezek wzgledem dlugosci
-    path_length=p[0].get_length();      //Pobranie sciezki dlugosci najkrotszej sciezki
+    path_length=p[0].get_length();      //Pobranie dlugosci najkrotszej sciezki
     position=p[0].get_last_node();      //Rozwiniecie najkrotszej sciezki
     if(position==find)
     {
       std::cout<<"Znaleziono"<<std::endl;
-      std::cout<<p[0].get_length()<<std::endl;
+      std::cout<<"Dlugosc sciezki: "<<p[0].get_length()<<std::endl;
       p[0].display_path();
-      path_finded=path_length;
+      //path_finded=path_length;
       std::cout<<std::endl;
     }
-
     p.erase(p.begin());                 //Usuwanie najkrotszej sciezki
     tmp=tab[position]->get_adjacency(); //Pobranie sasiadow
     for(int i=1;i<=tmp.size();i++)
     {
-      //Jezeli dlugosc obecnej sciezki i nastepnej bylaby dluzsza od drogi znalezionej
-      if(tmp.get_weight(i)+path_length<path_finded)
-        p.push_back(Path(tmp.get_data(i),tmp.get_weight(i)+path_length));
-      else
-      {
-        if(tmp.get_weight(i)<min)
-        {
-          min=tmp.get_weight(i);
-          p.push_back(Path(tmp.get_data(i),tmp.get_weight(i)+path_length));
-        }
-      }
+      v.add(tmp.get_data(i),0,v.size()+1);
+      p.push_back(Path(v,path_length+tmp.get_weight(i)));
     }
+
+    std::sort(p.begin(), p.end());      //Sortowanie sciezek wzgledem dlugosci
   }
 }
 /*
-1. Klasa sciezka skladajaca sie z wierzcholkow i posiadajaca dlugosc
-2. Kolejka priorytetowa sciezek posortowana wg dlugosci (na wyjsciu najkrotsza)
-3. Rozwijanie najkrotszej sciezki i najkrotszego jej sasiada
+1. Pierwsza sciezka
+2. Rozwin ja czyli stworz nowe sciezki dla kazdego z sasiadow np sciezka
 
+1->5 da 1->5->4 1->5->8
+
+3. Posortowanie nowych sciezek
+4. i jeszcze raz to samo, rozwijajac najkrotsza
 
 Jest kolejka priorytetowa sciezek od tej ktora ma najmniejsza dlugosc do najdluzszej
 Zawsze rozwija sie sciezke ktora jest najkrotsza
