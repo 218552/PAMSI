@@ -1,5 +1,6 @@
 #include <iostream>
-#include <queue>
+#include <vector>
+#include <algorithm>
 
 #include "node.hpp"
 #include "list.hpp"
@@ -123,29 +124,41 @@ void Graph::display_weight()
 
 void Graph::branch_and_bound(int first,int find)
 {
-  std::priority_queue<int,std::vector<int>,std::greater<int>> q;
-  Path path;
-
+  std::vector <Path> p;
+  List tmp;
+  int position=first;
+  p.push_back(Path(5,5));
+  p.push_back(Path(4,2));
+  p.push_back(Path(3,8));
+  p.push_back(Path(2,7));
+  p.push_back(Path(1,9));
+  std::sort(p.begin(), p.end());
+  std::cout<<p[0].get_last_node()<<std::endl;
   //Dopoki kolejka nie jest pusta
-  while(q.size()>0)
+  while(p.size()>0)
   {
 
     tmp=tab[position]->get_adjacency();
     for(int i=1;i<=tmp.size();i++)
     {
-      
+
     }
 
   }
 }
 /*
+1. Klasa sciezka skladajaca sie z wierzcholkow i posiadajaca dlugosc
+2. Kolejka priorytetowa sciezek posortowana wg dlugosci (na wyjsciu najkrotsza)
+3. Rozwijanie najkrotszej sciezki i najkrotszego jej sasiada
+
+
 Jest kolejka priorytetowa sciezek od tej ktora ma najmniejsza dlugosc do najdluzszej
 Zawsze rozwija sie sciezke ktora jest najkrotsza
 Wtedy inna staje sie najkrotsza itd. az do znalezenia szukanego wezla
-
-
 */
+
 /*
+std::sort(p.begin(), p.end());
 std::cout<<<<std::endl;
 tmp=tab[position]->get_adjacency();
 for(int i=1;i<=tmp.size();i++)

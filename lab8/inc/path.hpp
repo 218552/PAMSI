@@ -3,12 +3,14 @@
 
 class Path
 {
-  std::priority_queue<int,std::vector<int>,std::greater<int>> q;
-  Queue vertices;
+  List vertices;
+  int length=0;
 public:
-  void new_node(int index, int weight) {q.push(index);q.push(weight);}
-  int get_size() {return vertices.size();}
-  int get_min() { return q.top();}
+  Path(int index, int l) {vertices.add(index,0,vertices.size()+1); length=l;}
+  void add_length(int l) { length+=l; }
+  int get_last_node() { return vertices.get_data(vertices.size()); }
+  int get_length() { return length; }
+  bool operator < (const Path& l) const { return (length < l.length); }
 };
 
 #endif
