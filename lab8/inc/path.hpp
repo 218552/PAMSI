@@ -10,6 +10,7 @@ public:
   void add_length(int l) { length+=l; }
   int get_last_node() { return vertices.get_data(vertices.size()); }
   int get_length() { return length; }
+  void display_path() { vertices.display(); }
   bool operator < (const Path& l) const { return (length < l.length); }
 };
 

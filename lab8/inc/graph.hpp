@@ -20,8 +20,8 @@ public:
   void add_vertex();
   //Metoda dodaje krawedz miedzy wierzcholkami o zadancyh indeksach
   void add_edge(int x, int y, int w);
-  //Metoda wyswietla liste sasiedztwa danego wierzcholka
-  void display_adjacency(int index);
+  //Metoda wyswietla listy sasiedztwa kazdego wierzcholka grafu
+  void display_adjacency();
   //Metoda sprawdza czy lista sasiedztwa danego wierzcholka jest pusta
   bool is_adjacency_list_empty(int index) {return tab[index]->is_adjacency_list_empty();}
   //Metoda szuka danej wartosci w liscie sasiedztwa wierzcholka o zadanym indeksie

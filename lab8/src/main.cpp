@@ -22,9 +22,12 @@ int main()
   for(int i=0;i<size;i++)
   {
     while(!g.set_minimal_adjacency(i,3))   //Dopoki liczba krawedzi kazdego wierzcholka jest mniejsza od zadanej
-      g.add_edge(i,rand()%size,rand()%30); //Dodanie krawedzi
+      g.add_edge(i,rand()%size,rand()%10+1); //Dodanie krawedzi
   }
 
+  g.display_adjacency();
+
+  cout<<endl;
   g.display_weight();
 
   g.branch_and_bound(0,9);

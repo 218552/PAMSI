@@ -29,11 +29,16 @@ void Graph::add_edge(int x, int y, int w)
   }
 }
 
-void Graph::display_adjacency(int index)
+void Graph::display_adjacency()
 {
-  List l;
-  l=tab[index]->get_adjacency();
-  l.display();
+  List tmp;
+  for(int i=0;i<vertices;i++)
+  {
+    std::cout<<i<<"   ";
+    tmp=tab[i]->get_adjacency();
+    tmp.display();
+    std::cout<<std::endl;
+  }
 }
 
 void Graph::DFS_visit(int index)
@@ -124,26 +129,32 @@ void Graph::display_weight()
 
 void Graph::branch_and_bound(int first,int find)
 {
-  std::vector <Path> p;
+  std::vector <Path> p;            //Tablica sciezek
   List tmp;
   int position=first;
-  p.push_back(Path(5,5));
-  p.push_back(Path(4,2));
-  p.push_back(Path(3,8));
-  p.push_back(Path(2,7));
-  p.push_back(Path(1,9));
-  std::sort(p.begin(), p.end());
-  std::cout<<p[0].get_last_node()<<std::endl;
+  int path_length=0;
+  p.push_back(Path(first,0));
+
   //Dopoki kolejka nie jest pusta
-  while(p.size()>0)
+  while((p.size()>0)&&(position!=find))
   {
-
-    tmp=tab[position]->get_adjacency();
-    for(int i=1;i<=tmp.size();i++)
+    std::sort(p.begin(), p.end());      //Sortowanie sciezek wzgledem dlugosci
+    path_length=p[0].get_length();
+    position=p[0].get_last_node();
+    if(position==find)
     {
-
+      std::cout<<"Znaleziono"<<std::endl;
+      std::cout<<p[0].get_length()<<std::endl;
+      p[0].display_path();
+      std::cout<<std::endl;
     }
 
+    p.erase(p.begin());                 //Usuwanie najkrotszej sciezki
+    tmp=tab[position]->get_adjacency(); //Pobranie sasiadow
+    for(int i=1;i<=tmp.size();i++)
+    {
+      p.push_back(Path(tmp.get_data(i),tmp.get_weight(i)+path_length));
+    }
   }
 }
 /*
