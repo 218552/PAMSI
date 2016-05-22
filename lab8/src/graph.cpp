@@ -134,31 +134,56 @@ void Graph::branch_and_bound(int first,int find)
   List v;
   int position=first;
   int path_length=0;
-//  int path_finded=0;
+  int path_searched=0;
+  List paths;
+  bool is_found=0;
   v.add(first,0,1);
   p.push_back(Path(v,0));
-
+  int min=100;
   //Dopoki kolejka nie jest pusta
-  while((p.size()>0)&&(position!=find))
+  while(p.size()>0)
   {
     path_length=p[0].get_length();      //Pobranie dlugosci najkrotszej sciezki
     position=p[0].get_last_node();      //Rozwiniecie najkrotszej sciezki
+    min=100;
     if(position==find)
     {
       std::cout<<"Znaleziono"<<std::endl;
       std::cout<<"Dlugosc sciezki: "<<p[0].get_length()<<std::endl;
       p[0].display_path();
-      //path_finded=path_length;
+      paths.add(path_length,0,1);
+      for(int i=1;i<=paths.size();i++)
+      {
+        if(tmp.get_weight(i)<min)
+        {
+          min=tmp.get_weight(i);
+          position=tmp.get_data(i);
+        }
+      }
+      path_searched=min;
+      is_found=1;
       std::cout<<std::endl;
     }
+    else
+      v=p[0].get_vertices();
     p.erase(p.begin());                 //Usuwanie najkrotszej sciezki
     tmp=tab[position]->get_adjacency(); //Pobranie sasiadow
     for(int i=1;i<=tmp.size();i++)
     {
-      v.add(tmp.get_data(i),0,v.size()+1);
-      p.push_back(Path(v,path_length+tmp.get_weight(i)));
+      if(is_found==1)
+      {
+        if(path_searched>(path_length+tmp.get_weight(i)))
+        {
+          v.add(tmp.get_data(i),0,v.size()+1);
+          p.push_back(Path(v,path_length+tmp.get_weight(i)));
+        }
+      }
+      else
+      {
+        v.add(tmp.get_data(i),0,v.size()+1);
+        p.push_back(Path(v,path_length+tmp.get_weight(i)));
+      }
     }
-
     std::sort(p.begin(), p.end());      //Sortowanie sciezek wzgledem dlugosci
   }
 }

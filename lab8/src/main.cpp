@@ -21,7 +21,7 @@ int main()
 
   for(int i=0;i<size;i++)
   {
-    while(!g.set_minimal_adjacency(i,3))   //Dopoki liczba krawedzi kazdego wierzcholka jest mniejsza od zadanej
+    while(!g.set_minimal_adjacency(i,2))   //Dopoki liczba krawedzi kazdego wierzcholka jest mniejsza od zadanej
       g.add_edge(i,rand()%size,rand()%10+1); //Dodanie krawedzi
   }
 

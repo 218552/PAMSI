@@ -7,8 +7,7 @@ class Path
   int length=0;
 public:
   Path(List v, int l) { vertices=v; length=l; }
-  void add_node(List v, int l) { vertices=v; length=l; }
-  void add_length(int l) { length+=l; }
+  List get_vertices() { return vertices; }
   int get_last_node() { return vertices.get_data(vertices.size()); }
   int get_length() { return length; }
   void display_path() { vertices.display(); }
