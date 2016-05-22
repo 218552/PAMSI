@@ -38,8 +38,8 @@ public:
   void display_color();
   //Metoda wyswietla wagi krawedzi kazdego wierzcholka
   void display_weight();
-  //Metoda wyszukiwania wierzchloka Branch and Bound
-  void Branch_and_Bound(int first, int find);
+  //Metoda wyszukiwania wierzcholka Branch and Bound
+  void branch_and_bound(int first, int find);
 };
 
 #endif

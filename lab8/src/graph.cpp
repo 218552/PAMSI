@@ -1,9 +1,12 @@
 #include <iostream>
+#include <queue>
 
 #include "node.hpp"
 #include "list.hpp"
 #include "vertex.hpp"
 #include "graph.hpp"
+#include "queue.hpp"
+#include "path.hpp"
 
 void Graph::add_vertex()
 {
@@ -118,17 +121,41 @@ void Graph::display_weight()
   }
 }
 
-void Graph::Branch_and_Bound(int first,int find)
+void Graph::branch_and_bound(int first,int find)
 {
-  List tmp;
-  int x=-1;
-  while(x!=find)
+  std::priority_queue<int,std::vector<int>,std::greater<int>> q;
+  Path path;
+
+  //Dopoki kolejka nie jest pusta
+  while(q.size()>0)
   {
-    tmp=tab[first]->get_adjacency();
+
+    tmp=tab[position]->get_adjacency();
     for(int i=1;i<=tmp.size();i++)
     {
-      if(tmp.size())
-        std::cout<<tmp.get_weight(i)<<" ";
+      
     }
+
   }
 }
+/*
+Jest kolejka priorytetowa sciezek od tej ktora ma najmniejsza dlugosc do najdluzszej
+Zawsze rozwija sie sciezke ktora jest najkrotsza
+Wtedy inna staje sie najkrotsza itd. az do znalezenia szukanego wezla
+
+
+*/
+/*
+std::cout<<<<std::endl;
+tmp=tab[position]->get_adjacency();
+for(int i=1;i<=tmp.size();i++)
+{
+
+}
+
+if(tmp.get_weight(i)<min)
+{
+  min=tmp.get_weight(i);
+  position=tmp.get_data(i);
+}
+*/
