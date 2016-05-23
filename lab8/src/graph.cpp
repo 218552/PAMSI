@@ -131,19 +131,18 @@ void Graph::display_weight()
 void Graph::branch_and_bound(int first,int find)
 {
   std::vector <Path> p;    //Tablica sciezek
-  List q;
-  List tmp;
-  List paths;
+  List q;                  //Lista wierzcholkow
+  List tmp;                //Lista pomocnicza do rozwijania sasiadow
+  List paths;              //Lista pomocnicza do
   int position=first;
-  int path_length=0;
-  bool is_found=0;
-  int path_searched=0;
-  q.add(first,0,1);
-  p.push_back(Path(q,0));
+  int path_length=0;       //Dlugosc sciezki
+  bool is_found=0;         //Zmienna pomocnicza, 1 gdy znaleziono szukana
+  int path_searched=0;     //Dlugosc sciezki znalezionej
+  q.add(first,0,1);        //Dodanie pierwszego wierzcholka
+  p.push_back(Path(q,0));  //Dodanie pierwszej sciezki
 
   //Dopoki kolejka nie jest pusta
-
-  while((p.size()>0))
+  while(p.size()>0)
   {
     path_length=p[0].get_length();      //Pobranie dlugosci najkrotszej sciezki
     position=p[0].get_last_node();      //Pobranie ostatniego wezla sciezki
@@ -183,7 +182,6 @@ void Graph::branch_and_bound(int first,int find)
           q.add(tmp.get_data(i),0,q.size()+1);
           p.push_back(Path(q,path_length+tmp.get_weight(i)));
           q.remove(q.size());
-          std::cout<<"Sciezka mniejsza od znalezionej najmniejszej"<<std::endl;
         }
       }
       else
@@ -196,32 +194,3 @@ void Graph::branch_and_bound(int first,int find)
     std::sort(p.begin(), p.end());      //Sortowanie sciezek wzgledem dlugosci
   }
 }
-/*
-1. Pierwsza sciezka
-2. Rozwin ja czyli stworz nowe sciezki dla kazdego z sasiadow np sciezka
-
-1->5 da 1->5->4 1->5->8
-
-3. Posortowanie nowych sciezek
-4. i jeszcze raz to samo, rozwijajac najkrotsza
-
-Jest kolejka priorytetowa sciezek od tej ktora ma najmniejsza dlugosc do najdluzszej
-Zawsze rozwija sie sciezke ktora jest najkrotsza
-Wtedy inna staje sie najkrotsza itd. az do znalezenia szukanego wezla
-*/
-
-/*
-std::sort(p.begin(), p.end());
-std::cout<<<<std::endl;
-tmp=tab[position]->get_adjacency();
-for(int i=1;i<=tmp.size();i++)
-{
-
-}
-
-if(tmp.get_weight(i)<min)
-{
-  min=tmp.get_weight(i);
-  position=tmp.get_data(i);
-}
-*/
