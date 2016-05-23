@@ -13,16 +13,17 @@ using namespace std;
 int main()
 {
   srand(time(NULL));
-  int size=10;   //Rozmiar grafu
+  int size=100;   //Rozmiar grafu
   Graph g(size); //Deklaracja grafu o zadanym rozmiarze
 
   for(int i=0;i<size;i++) //Dodanie wierzcholkow do grafu
     g.add_vertex();
 
+
   for(int i=0;i<size;i++)
   {
-    while(!g.set_minimal_adjacency(i,2))   //Dopoki liczba krawedzi kazdego wierzcholka jest mniejsza od zadanej
-      g.add_edge(i,rand()%size,rand()%10+1); //Dodanie krawedzi
+    while(!g.set_minimal_adjacency(i,4))   //Dopoki liczba krawedzi kazdego wierzcholka jest mniejsza od zadanej
+      g.add_edge(i,rand()%size,rand()%25+1); //Dodanie krawedzi
   }
 
   g.display_adjacency();

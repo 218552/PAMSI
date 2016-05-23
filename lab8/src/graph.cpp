@@ -133,9 +133,10 @@ void Graph::branch_and_bound(int first,int find)
   std::vector <Path> p;    //Tablica sciezek
   List q;
   List tmp;
+  List paths;
   int position=first;
   int path_length=0;
-  bool is=0;
+  bool is_found=0;
   int path_searched=0;
   q.add(first,0,1);
   p.push_back(Path(q,0));
@@ -147,29 +148,42 @@ void Graph::branch_and_bound(int first,int find)
     path_length=p[0].get_length();      //Pobranie dlugosci najkrotszej sciezki
     position=p[0].get_last_node();      //Pobranie ostatniego wezla sciezki
     //Jezeli ostatni wezel jest szukany
-    if(position==find)
+    if((position==find))
     {
-      std::cout<<"Znaleziono"<<std::endl;
-      std::cout<<"Dlugosc sciezki: "<<p[0].get_length()<<std::endl;
-      p[0].display_path();
-      std::cout<<std::endl;
-      is=1;
-      path_searched=path_length;
+      if(is_found==1)
+      {
+        if(path_length<path_searched)
+        {
+          std::cout<<"Znaleziono"<<std::endl;
+          std::cout<<"Dlugosc sciezki: "<<p[0].get_length()<<std::endl;
+          p[0].display_path();
+          std::cout<<std::endl;
+          path_searched=path_searched;
+        }
+      }
+      else
+      {
+        std::cout<<"Znaleziono"<<std::endl;
+        std::cout<<"Dlugosc sciezki: "<<p[0].get_length()<<std::endl;
+        p[0].display_path();
+        std::cout<<std::endl;
+        is_found=1;
+        path_searched=path_searched;
+      }
     }
     q=p[0].get_vertices();             //Pobranie dotychczasowej najkrotszej sciezki
     p.erase(p.begin());                 //Usuwanie najkrotszej sciezki
     tmp=tab[position]->get_adjacency(); //Pobranie sasiadow
     for(int i=1;i<=tmp.size();i++)
     {
-      if(is==1)
+      if(is_found==1)
       {
         if((path_length+tmp.get_weight(i))<path_searched)
         {
           q.add(tmp.get_data(i),0,q.size()+1);
           p.push_back(Path(q,path_length+tmp.get_weight(i)));
           q.remove(q.size());
-          std::cout<<path_length<<std::endl;
-          std::cout<<path_searched<<std::endl;
+          std::cout<<"Sciezka mniejsza od znalezionej najmniejszej"<<std::endl;
         }
       }
       else
