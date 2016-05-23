@@ -133,7 +133,6 @@ void Graph::branch_and_bound(int first,int find)
   std::vector <Path> p;    //Tablica sciezek
   List q;                  //Lista wierzcholkow
   List tmp;                //Lista pomocnicza do rozwijania sasiadow
-  List paths;              //Lista pomocnicza do
   int position=first;
   int path_length=0;       //Dlugosc sciezki
   bool is_found=0;         //Zmienna pomocnicza, 1 gdy znaleziono szukana
@@ -206,7 +205,6 @@ void Graph::branch_and_bound_with_extended_list(int first,int find)
   std::vector <Path> p;    //Tablica sciezek
   List q;                  //Lista wierzcholkow
   List tmp;                //Lista pomocnicza do rozwijania sasiadow
-  List paths;              //Lista pomocnicza do
   int position=first;
   int path_length=0;       //Dlugosc sciezki
   bool is_found=0;         //Zmienna pomocnicza, 1 gdy znaleziono szukana
