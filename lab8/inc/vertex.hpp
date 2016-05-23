@@ -4,7 +4,7 @@
 class Vertex
 {
   int index;             //Indeks wierzcholka
-  char color;            // kolor wierzcholka, W - white, B - black, G - grey
+  char color='W';            // kolor wierzcholka, W - white, B - black, G - grey
   int previous;          //Indeks poprzedniego wierzcholka
   int length;            //Dlugosc sciezki
   List adjacency_list;   //Lista sasiedztwa

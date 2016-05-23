@@ -141,6 +141,7 @@ void Graph::branch_and_bound(int first,int find)
   q.add(first,0,1);        //Dodanie pierwszego wierzcholka
   p.push_back(Path(q,0));  //Dodanie pierwszej sciezki
 
+  int extended=1;
   //Dopoki kolejka nie jest pusta
   while(p.size()>0)
   {
@@ -179,18 +180,100 @@ void Graph::branch_and_bound(int first,int find)
       {
         if((path_length+tmp.get_weight(i))<path_searched)
         {
+          tab[tmp.get_data(i)]->change_color('B');
           q.add(tmp.get_data(i),0,q.size()+1);
           p.push_back(Path(q,path_length+tmp.get_weight(i)));
           q.remove(q.size());
+          extended++;
         }
       }
       else
       {
+        tab[tmp.get_data(i)]->change_color('B');
         q.add(tmp.get_data(i),0,q.size()+1);
         p.push_back(Path(q,path_length+tmp.get_weight(i)));
         q.remove(q.size());
+        extended++;
       }
     }
     std::sort(p.begin(), p.end());      //Sortowanie sciezek wzgledem dlugosci
   }
+  std::cout<<"Liczba rozwinietych sciezek: "<<extended<<std::endl;
+}
+
+void Graph::branch_and_bound_with_extended_list(int first,int find)
+{
+  std::vector <Path> p;    //Tablica sciezek
+  List q;                  //Lista wierzcholkow
+  List tmp;                //Lista pomocnicza do rozwijania sasiadow
+  List paths;              //Lista pomocnicza do
+  int position=first;
+  int path_length=0;       //Dlugosc sciezki
+  bool is_found=0;         //Zmienna pomocnicza, 1 gdy znaleziono szukana
+  int path_searched=0;     //Dlugosc sciezki znalezionej
+  q.add(first,0,1);        //Dodanie pierwszego wierzcholka
+  p.push_back(Path(q,0));  //Dodanie pierwszej sciezki
+
+  int extended=1;
+  //Dopoki kolejka nie jest pusta
+  while(p.size()>0)
+  {
+    path_length=p[0].get_length();      //Pobranie dlugosci najkrotszej sciezki
+    position=p[0].get_last_node();      //Pobranie ostatniego wezla sciezki
+    tab[position]->change_color('B');
+    //Jezeli ostatni wezel jest szukany
+    if((position==find))
+    {
+      if(is_found==1)
+      {
+        if(path_length<path_searched)
+        {
+          std::cout<<"Znaleziono"<<std::endl;
+          std::cout<<"Dlugosc sciezki: "<<p[0].get_length()<<std::endl;
+          p[0].display_path();
+          std::cout<<std::endl;
+          path_searched=path_searched;
+        }
+      }
+      else
+      {
+        std::cout<<"Znaleziono"<<std::endl;
+        std::cout<<"Dlugosc sciezki: "<<p[0].get_length()<<std::endl;
+        p[0].display_path();
+        std::cout<<std::endl;
+        is_found=1;
+        path_searched=path_searched;
+      }
+    }
+    q=p[0].get_vertices();             //Pobranie dotychczasowej najkrotszej sciezki
+    p.erase(p.begin());                 //Usuwanie najkrotszej sciezki
+    tmp=tab[position]->get_adjacency(); //Pobranie sasiadow
+
+    for(int i=1;i<=tmp.size();i++)
+    {
+      if(tab[tmp.get_data(i)]->get_color()!='B')
+      {
+        if(is_found==1)
+        {
+          if((path_length+tmp.get_weight(i))<path_searched)
+          {
+            q.add(tmp.get_data(i),0,q.size()+1);
+            p.push_back(Path(q,path_length+tmp.get_weight(i)));
+            q.remove(q.size());
+            extended++;
+          }
+        }
+        else
+        {
+          q.add(tmp.get_data(i),0,q.size()+1);
+          p.push_back(Path(q,path_length+tmp.get_weight(i)));
+          q.remove(q.size());
+          extended++;
+        }
+      }
+    }
+
+    std::sort(p.begin(), p.end());      //Sortowanie sciezek wzgledem dlugosci
+  }
+  std::cout<<"Liczba rozwinietych sciezek: "<<extended<<std::endl;
 }

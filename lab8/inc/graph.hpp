@@ -40,6 +40,8 @@ public:
   void display_weight();
   //Metoda wyszukiwania wierzcholka Branch and Bound
   void branch_and_bound(int first, int find);
+  //Metoda wyszukiwania wierzcholka Branch and Bound with extended list
+  void branch_and_bound_with_extended_list(int first,int find);
 };
 
 #endif
