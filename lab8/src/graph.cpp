@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 
+
 #include "node.hpp"
 #include "list.hpp"
 #include "vertex.hpp"
@@ -129,59 +130,53 @@ void Graph::display_weight()
 
 void Graph::branch_and_bound(int first,int find)
 {
-  std::vector <Path> p;            //Tablica sciezek
+  std::vector <Path> p;    //Tablica sciezek
+  List q;
   List tmp;
-  List v;
   int position=first;
   int path_length=0;
+  bool is=0;
   int path_searched=0;
-  List paths;
-  bool is_found=0;
-  v.add(first,0,1);
-  p.push_back(Path(v,0));
-  int min=100;
+  q.add(first,0,1);
+  p.push_back(Path(q,0));
+
   //Dopoki kolejka nie jest pusta
-  while(p.size()>0)
+
+  while((p.size()>0))
   {
     path_length=p[0].get_length();      //Pobranie dlugosci najkrotszej sciezki
-    position=p[0].get_last_node();      //Rozwiniecie najkrotszej sciezki
-    min=100;
+    position=p[0].get_last_node();      //Pobranie ostatniego wezla sciezki
+    //Jezeli ostatni wezel jest szukany
     if(position==find)
     {
       std::cout<<"Znaleziono"<<std::endl;
       std::cout<<"Dlugosc sciezki: "<<p[0].get_length()<<std::endl;
       p[0].display_path();
-      paths.add(path_length,0,1);
-      for(int i=1;i<=paths.size();i++)
-      {
-        if(tmp.get_weight(i)<min)
-        {
-          min=tmp.get_weight(i);
-          position=tmp.get_data(i);
-        }
-      }
-      path_searched=min;
-      is_found=1;
       std::cout<<std::endl;
+      is=1;
+      path_searched=path_length;
     }
-    else
-      v=p[0].get_vertices();
+    q=p[0].get_vertices();             //Pobranie dotychczasowej najkrotszej sciezki
     p.erase(p.begin());                 //Usuwanie najkrotszej sciezki
     tmp=tab[position]->get_adjacency(); //Pobranie sasiadow
     for(int i=1;i<=tmp.size();i++)
     {
-      if(is_found==1)
+      if(is==1)
       {
-        if(path_searched>(path_length+tmp.get_weight(i)))
+        if((path_length+tmp.get_weight(i))<path_searched)
         {
-          v.add(tmp.get_data(i),0,v.size()+1);
-          p.push_back(Path(v,path_length+tmp.get_weight(i)));
+          q.add(tmp.get_data(i),0,q.size()+1);
+          p.push_back(Path(q,path_length+tmp.get_weight(i)));
+          q.remove(q.size());
+          std::cout<<path_length<<std::endl;
+          std::cout<<path_searched<<std::endl;
         }
       }
       else
       {
-        v.add(tmp.get_data(i),0,v.size()+1);
-        p.push_back(Path(v,path_length+tmp.get_weight(i)));
+        q.add(tmp.get_data(i),0,q.size()+1);
+        p.push_back(Path(q,path_length+tmp.get_weight(i)));
+        q.remove(q.size());
       }
     }
     std::sort(p.begin(), p.end());      //Sortowanie sciezek wzgledem dlugosci
