@@ -33,3 +33,14 @@ Wykres w sprawozdaniu nie zawiera krzywych wzorcowych, trudno go ocenić.
 Osiągnięcie O(1) jest możliwe nawet w przypadku średnim, O(n) w pesymistycznym.
 
 **Ocena: 4**
+
+# Lab7 - drzewa
+
+Ocena: 5
+
+# Lab8 - grafy (dfs,bfs)
+Ocena: 5
+
+# Lab9 - grafy (b&b)
+
+Ocena: 5
